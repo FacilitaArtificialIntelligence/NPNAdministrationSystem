@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
         .AddInfrastructure(builder.Configuration)
         .AddApplication();
 }
+
 var app = builder.Build();
 {
     if (app.Environment.IsDevelopment())
