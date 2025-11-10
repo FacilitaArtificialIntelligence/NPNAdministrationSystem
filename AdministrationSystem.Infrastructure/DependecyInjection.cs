@@ -5,8 +5,12 @@ using AdministrationSystem.Infrastructure.Authentication.PasswordHasher;
 using AdministrationSystem.Infrastructure.Authentication.TokenGenerator;
 using AdministrationSystem.Infrastructure.Common.Persistance;
 using AdministrationSystem.Infrastructure.Common.Storage;
+using AdministrationSystem.Infrastructure.Finances;
+using AdministrationSystem.Infrastructure.Products;
+using AdministrationSystem.Infrastructure.Sales;
+using AdministrationSystem.Infrastructure.Sites;
 using AdministrationSystem.Infrastructure.Users;
-
+using AdministrationSystem.Infrastructure.WebSites;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +46,11 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<AdministrationSystemDBContext>());
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<ISitesRepository, SitesRepository>();
+        services.AddScoped<IWebSiteRepository, WebSiteRepository>();
+        services.AddScoped<IProductsRepository, ProductRepository>();
+        services.AddScoped<ISalesRepository, SalesRepository>();
+        services.AddScoped<IFinanceRepository, FinanceRepository>();
         services.AddScoped<ICloudStorageService, GoogleCloudStorageService>();
 
         return services;

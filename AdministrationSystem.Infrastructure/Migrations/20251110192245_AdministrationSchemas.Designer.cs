@@ -4,6 +4,7 @@ using AdministrationSystem.Infrastructure.Common.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdministrationSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(AdministrationSystemDBContext))]
-    partial class AdministrationSystemDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251110192245_AdministrationSchemas")]
+    partial class AdministrationSchemas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
