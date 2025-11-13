@@ -4,9 +4,9 @@ namespace AdministrationSystem.Application.Common.Interfaces;
 
 public interface IProductsRepository
 {
-    public Task AddProductAsync(Product product);
-    public Task<Product?> GetProductByIdAsync(Guid productId);
-    public Task<List<Product>> GetAllProductsAsync(Guid siteId);
-    public Task DeleteProductAsync(Product product);
-    public Task UpdateProductAsync(Product product);
+    Task CreateProductAsync(Product product);
+    Task<Product?> GetProductByIdAsync(Guid productId);
+    Task<List<Product>> GetProductsBySiteIdAsync(Guid siteId);
+    Task UpdateProduct(Product product);
+    Task DeleteProduct(Product product);
 }

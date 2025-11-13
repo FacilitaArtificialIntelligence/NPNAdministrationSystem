@@ -1,6 +1,5 @@
 using MediatR;
 using AdministrationSystem.Application.Common.Interfaces;
-using AdministrationSystem.Application.Common.Models;
 using AdministrationSystem.Domain.WebSites;
 
 namespace AdministrationSystem.Application.WebSites.Queries.GetAllWebSites;
