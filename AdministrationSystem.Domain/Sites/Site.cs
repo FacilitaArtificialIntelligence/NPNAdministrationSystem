@@ -10,6 +10,7 @@ public class Site
     public string Description { get; set; } = null!;
 
     public Site(
+        Guid webSiteId,
         string name,
         string subDomain,
         string email,
@@ -17,6 +18,7 @@ public class Site
         Guid? siteId = null)
     {
         SiteId = siteId ?? Guid.NewGuid();
+        WebSiteId = webSiteId;
         Name = name;
         SubDomain = subDomain;
         Email = email;

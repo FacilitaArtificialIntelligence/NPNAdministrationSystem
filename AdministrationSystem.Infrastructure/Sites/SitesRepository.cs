@@ -15,7 +15,7 @@ public class SitesRepository : ISitesRepository
         _context = context;
     }
 
-    public async Task AddSiteAsync(Site site)
+    public async Task CreateSiteAsync(Site site)
     {
         await _context.Sites.AddAsync(site);
     }
@@ -29,6 +29,11 @@ public class SitesRepository : ISitesRepository
     public async Task<List<Site>> GetAllSitesAsync()
     {
         return await _context.Sites.ToListAsync();
+    }
+
+    public Task<List<Site>> GetAllSitesAsync(Guid webSiteId)
+    {
+        return _context.Sites.Where(s => s.WebSiteId == webSiteId).ToListAsync();
     }
 
     public Task<Site?> GetSiteByIdAsync(Guid siteId)
