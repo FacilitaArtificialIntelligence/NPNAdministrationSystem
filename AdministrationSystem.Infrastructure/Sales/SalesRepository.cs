@@ -36,4 +36,9 @@ public class SalesRepository : ISalesRepository
     {
         return await _context.Sales.FirstOrDefaultAsync(s => s.SaleId == saleId);
     }
+
+    public async Task<List<Sale>> GetSalesByProductIdAsync(Guid productId)
+    {
+        return await _context.Sales.Where(s => s.ProductId == productId).ToListAsync();
+    }
 }

@@ -27,9 +27,11 @@ public class FinanceRepository : IFinanceRepository
         return Task.CompletedTask;
     }
 
-    public async Task<List<Finance>> GetAllFinancesAsync()
+    public async Task<List<Finance>> GetAllFinancesBySubdomainAsync(Guid siteId)
     {
-        return await _context.Finances.ToListAsync();
+        return await _context.Finances
+            .Where(f => f.SiteId == siteId)
+            .ToListAsync();
     }
 
     public async Task<Finance?> GetFinanceByIdAsync(Guid financeId)

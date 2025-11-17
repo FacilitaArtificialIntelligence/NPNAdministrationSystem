@@ -8,4 +8,5 @@ public interface ISalesRepository
     public Task<Sale?> GetSaleByIdAsync(Guid saleId);
     public Task<List<Sale>> GetAllSalesAsync(Guid siteId);
     public Task DeleteSaleAsync(Sale sale);
+    public Task<List<Sale>> GetSalesByProductIdAsync(Guid productId);
 }
