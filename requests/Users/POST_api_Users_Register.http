@@ -4,14 +4,14 @@ POST {host}/api/Users/Register
 Content-Type: application/json
 
 {
-    "userName": "string-userName",
-    "fullName": "string-fullName",
-    "email": "string-email",
-    "password": "string-password",
-    "role": "string-role",
-    "dataNascimento": "2024-01-01T00:00:00",
-    "cpf": "string-cpf",
-    "phoneNumber": "string-phoneNumber",
-    "cep": "string-cep",
-    "address": "string-address"
+    "userName": "FacilitaAI",
+    "fullName": "FacilitaAI User",
+    "email": "admin@ai.facilitavitae.com.br",
+    "password": "Facilita123!",
+    "role": 1,
+    "dataNascimento": "2021-12-02",
+    "cpf": "006.123.456-78",
+    "phoneNumber": "+5511999999999",
+    "cep": "55555-555",
+    "address": "123 Facilita St"
 }

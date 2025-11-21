@@ -15,6 +15,7 @@ public class FinanceConfiguration : IEntityTypeConfiguration<Finance>
         builder.HasKey(x => x.FinanceId);
 
         builder.Property(x => x.Description).HasMaxLength(500);
+        builder.Property(x => x.TotalRevenue).IsRequired().HasColumnType("decimal(18,2)");
 
         builder
             .HasOne<Sale>()

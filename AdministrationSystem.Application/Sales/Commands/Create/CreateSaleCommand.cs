@@ -8,6 +8,5 @@ public record CreateSaleCommand(
     Guid ProductId,
     Guid SiteId,
     Guid UserId,
-    DateTime SaleDate,
     decimal Amount
 ) : IRequest<ErrorOr<Sale>>;

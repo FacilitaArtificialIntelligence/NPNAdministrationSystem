@@ -8,6 +8,7 @@ using AdministrationSystem.Application.Sites.Queries.GetSiteById;
 using AdministrationSystem.Application.Sites.Queries.GetSitesByWebSiteId;
 
 using OneOf.Types;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdministrationSystem.Api.Controllers;
 
@@ -62,6 +63,7 @@ public class SitesController : ApiController
         );
     }
 
+    [Authorize]
     [HttpGet("ByWebSite/{webSiteId:guid}")]
     public async Task<IActionResult> GetByWebSite(Guid webSiteId)
     {

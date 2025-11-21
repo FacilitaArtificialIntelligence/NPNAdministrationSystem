@@ -8,6 +8,7 @@ public class Finance
     public Guid SiteId { get; set; }
     public decimal TotalRevenue { get; set; }
     public string Description { get; set; } = null!;
+    public DateTime Date { get; set; }
 
     public Finance(
         Guid userId,
@@ -15,6 +16,7 @@ public class Finance
         Guid siteId,
         decimal totalRevenue,
         string description,
+        DateTime date,
         Guid? financeId = null)
     {
         FinanceId = financeId ?? Guid.NewGuid();
@@ -23,6 +25,7 @@ public class Finance
         SiteId = siteId;
         TotalRevenue = totalRevenue;
         Description = description;
+        Date = date;
     }
 
     private Finance() { }

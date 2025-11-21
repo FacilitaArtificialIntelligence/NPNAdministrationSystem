@@ -36,7 +36,8 @@ public class CreateFinanceCommandHandler
             command.SaleId,
             command.SiteId,
             command.TotalRevenue,
-            command.Description);
+            command.Description,
+            DateTime.Now);
 
         await _financeRepository.AddFinanceRecordAsync(finance);
         await _unitOfWork.CommitChangesAsync();

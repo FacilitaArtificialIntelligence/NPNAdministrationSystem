@@ -4,6 +4,7 @@ using AdministrationSystem.Infrastructure.Common.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AdministrationSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(AdministrationSystemDBContext))]
-    partial class AdministrationSystemDBContextModelSnapshot : ModelSnapshot
+    [Migration("20251121213349_FinanceDate")]
+    partial class FinanceDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace AdministrationSystem.Infrastructure.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<decimal>("TotalRevenue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -74,7 +77,7 @@ namespace AdministrationSystem.Infrastructure.Migrations
                         .HasColumnType("varchar(150)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<Guid>("SiteId")
                         .HasColumnType("char(36)");
@@ -92,7 +95,7 @@ namespace AdministrationSystem.Infrastructure.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("char(36)");

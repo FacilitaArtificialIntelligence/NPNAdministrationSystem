@@ -25,7 +25,6 @@ public class SalesController : ApiController
             request.ProductId,
             request.SiteId,
             request.UserId,
-            request.SaleDate,
             request.Amount);
 
         var result = await _mediator.Send(command);

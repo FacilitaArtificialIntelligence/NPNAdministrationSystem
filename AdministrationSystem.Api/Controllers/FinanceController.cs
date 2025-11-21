@@ -20,39 +20,39 @@ public class FinanceController : ApiController
         _mediator = mediator;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateFinanceRequest request)
-    {
-        var command = new CreateFinanceCommand(
-            request.SubDomain,
-            request.UserId,
-            request.SaleId,
-            request.TotalRevenue,
-            request.Description);
+    // [HttpPost]
+    // public async Task<IActionResult> Create(CreateFinanceRequest request)
+    // {
+    //     var command = new CreateFinanceCommand(
+    //         request.SubDomain,
+    //         request.UserId,
+    //         request.SaleId,
+    //         request.TotalRevenue,
+    //         request.Description);
 
-        var result = await _mediator.Send(command);
+    //     var result = await _mediator.Send(command);
 
-        return result.Match(
-            finance => CreatedAtAction(
-                nameof(GetFinanceById),
-                new { financeId = finance.FinanceId },
-                new FinanceResponse(
-                    finance.FinanceId,
-                    finance.SiteId,
-                    finance.UserId,
-                    finance.SaleId,
-                    finance.TotalRevenue,
-                    finance.Description
-                )),
-            Problem);
-    }
+    //     return result.Match(
+    //         finance => CreatedAtAction(
+    //             nameof(GetFinanceById),
+    //             new { financeId = finance.FinanceId },
+    //             new FinanceResponse(
+    //                 finance.FinanceId,
+    //                 finance.SiteId,
+    //                 finance.UserId,
+    //                 finance.SaleId,
+    //                 finance.TotalRevenue,
+    //                 finance.Description
+    //             )),
+    //         Problem);
+    // }
 
-    [HttpDelete("{financeId:guid}")]
-    public async Task<IActionResult> Delete(Guid financeId)
-    {
-        var result = await _mediator.Send(new DeleteFinanceCommand(financeId));
-        return result.Match(_ => NoContent(), Problem);
-    }
+    // [HttpDelete("{financeId:guid}")]
+    // public async Task<IActionResult> Delete(Guid financeId)
+    // {
+    //     var result = await _mediator.Send(new DeleteFinanceCommand(financeId));
+    //     return result.Match(_ => NoContent(), Problem);
+    // }
 
     [HttpGet("{financeId:guid}")]
     public async Task<IActionResult> GetFinanceById(Guid financeId)

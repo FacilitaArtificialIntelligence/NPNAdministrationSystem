@@ -14,7 +14,7 @@ public class SaleConfiguration : IEntityTypeConfiguration<Sale>
 
         builder.HasKey(x => x.SaleId);
         builder.Property(x => x.SaleId).ValueGeneratedNever();
-        builder.Property(x => x.Amount).IsRequired();
+        builder.Property(x => x.Amount).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(x => x.SaleDate).IsRequired();
         builder.Property(x => x.SiteId).IsRequired();
         builder.Property(x => x.UserId).IsRequired();

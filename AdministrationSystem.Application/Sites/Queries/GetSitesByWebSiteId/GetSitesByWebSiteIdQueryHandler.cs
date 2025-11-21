@@ -23,7 +23,7 @@ public class GetSitesByWebSiteIdQueryHandler
     {
         var currentUser = _currentUserProvider.GetCurrentUser();
 
-        if (currentUser == null)
+        if (currentUser == null || currentUser.Role != 1)
         {
             return Error.Failure("Unauthorized", "Current user is unauthorized.");
         }
