@@ -1,8 +1,8 @@
 using MediatR;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using AdministrationSystem.Contracts.Users;
 using AdministrationSystem.Application.Users.Commands.Register;
-using ErrorOr;
 using AdministrationSystem.Application.Common.Models;
 using AdministrationSystem.Application.Authentication.Queries.LoginUser;
 

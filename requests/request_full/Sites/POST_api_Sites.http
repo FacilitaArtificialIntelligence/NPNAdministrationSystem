@@ -1,0 +1,14 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+POST {host}/api/Sites
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "webSiteId": "00000000-0000-0000-0000-000000000000",
+    "name": "string-name",
+    "subDomain": "string-subDomain",
+    "email": "string-email",
+    "description": "string-description"
+}

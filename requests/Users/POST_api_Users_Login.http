@@ -1,0 +1,9 @@
+@host=http://localhost:5001
+
+POST {host}/api/Users/Login
+Content-Type: application/json
+
+{
+    "email": "string-email",
+    "password": "string-password"
+}

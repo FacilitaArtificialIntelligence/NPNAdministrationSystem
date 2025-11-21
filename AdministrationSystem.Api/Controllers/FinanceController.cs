@@ -1,16 +1,15 @@
 using MediatR;
-
-namespace AdministrationSystem.Api.Controllers;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using AdministrationSystem.Contracts.Finance;
 using AdministrationSystem.Application.Finances.Commands.CreateFinance;
 using AdministrationSystem.Application.Finances.Commands.DeleteFinance;
 using AdministrationSystem.Application.Finances.Queries.GetById;
 using AdministrationSystem.Application.Finances.Queries.GetBySubDomain;
-using AdministrationSystem.Contracts.Finance;
 
+namespace AdministrationSystem.Api.Controllers;
 
-using Microsoft.AspNetCore.Mvc;
-
+[Authorize]
 [Route("api/[controller]")]
 public class FinanceController : ApiController
 {
@@ -34,24 +33,40 @@ public class FinanceController : ApiController
         var result = await _mediator.Send(command);
 
         return result.Match(
-            f => Ok(result.Value),
+            finance => CreatedAtAction(
+                nameof(GetFinanceById),
+                new { financeId = finance.FinanceId },
+                new FinanceResponse(
+                    finance.FinanceId,
+                    finance.SiteId,
+                    finance.UserId,
+                    finance.SaleId,
+                    finance.TotalRevenue,
+                    finance.Description
+                )),
             Problem);
     }
 
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid id)
+    [HttpDelete("{financeId:guid}")]
+    public async Task<IActionResult> Delete(Guid financeId)
     {
-        var result = await _mediator.Send(new DeleteFinanceCommand(id));
+        var result = await _mediator.Send(new DeleteFinanceCommand(financeId));
         return result.Match(_ => NoContent(), Problem);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetById(Guid id)
+    [HttpGet("{financeId:guid}")]
+    public async Task<IActionResult> GetFinanceById(Guid financeId)
     {
-        var result = await _mediator.Send(new GetFinanceByIdQuery(id));
+        var result = await _mediator.Send(new GetFinanceByIdQuery(financeId));
 
         return result.Match(
-            f => Ok(result.Value),
+            f => Ok(new FinanceResponse(
+                f.FinanceId,
+                f.SiteId,
+                f.UserId,
+                f.SaleId,
+                f.TotalRevenue,
+                f.Description)),
             Problem);
     }
 
@@ -61,7 +76,13 @@ public class FinanceController : ApiController
         var result = await _mediator.Send(new GetFinanceBySubDomainQuery(subDomain));
 
         return result.Match(
-            list => Ok(result.Value),
+            list => Ok(list.Select(finance => new FinanceResponse(
+                finance.FinanceId,
+                finance.SiteId,
+                finance.UserId,
+                finance.SaleId,
+                finance.TotalRevenue,
+                finance.Description))),
             Problem);
     }
 }

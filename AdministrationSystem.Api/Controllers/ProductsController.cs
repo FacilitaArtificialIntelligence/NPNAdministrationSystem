@@ -6,9 +6,11 @@ using AdministrationSystem.Application.Products.Commands.DeleteProduct;
 using AdministrationSystem.Application.Products.Queries.GetById;
 using AdministrationSystem.Application.Products.Queries.GetBySite;
 using AdministrationSystem.Contracts.Products;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdministrationSystem.Api.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 public class ProductsController : ApiController
 {
@@ -31,30 +33,36 @@ public class ProductsController : ApiController
         var result = await _mediator.Send(command);
 
         return result.Match(
-            p => Ok(p),
+            product => CreatedAtAction(
+                nameof(GetById),
+                new { id = product.ProductId },
+                new ProductResponse(
+                    product.ProductId,
+                    product.SiteId,
+                    product.Name,
+                    product.Description,
+                    product.Price
+                )),
             Problem);
     }
 
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> Update(Guid id, UpdateProductRequest request)
+    [HttpPut("{productId:guid}")]
+    public async Task<IActionResult> Update(Guid productId, UpdateProductRequest request)
     {
         var command = new UpdateProductCommand(
-            id,
+            productId,
             request.Name,
             request.Description,
             request.Price);
 
         var result = await _mediator.Send(command);
-
-        return result.Match(
-            p => Ok(p),
-            Problem);
+        return result.Match(_ => NoContent(), Problem);
     }
 
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete(Guid id)
+    [HttpDelete("{productId:guid}")]
+    public async Task<IActionResult> Delete(Guid productId)
     {
-        var result = await _mediator.Send(new DeleteProductCommand(id));
+        var result = await _mediator.Send(new DeleteProductCommand(productId));
         return result.Match(_ => NoContent(), Problem);
     }
 
@@ -63,7 +71,13 @@ public class ProductsController : ApiController
     {
         var result = await _mediator.Send(new GetProductByIdQuery(id));
         return result.Match(
-            p => Ok(p),
+            product => Ok(new ProductResponse(
+                product.ProductId,
+                product.SiteId,
+                product.Name,
+                product.Description,
+                product.Price
+            )),
             Problem);
     }
 
@@ -72,7 +86,13 @@ public class ProductsController : ApiController
     {
         var result = await _mediator.Send(new GetProductsBySiteQuery(siteId));
         return result.Match(
-            list => Ok(result.Value),
+            list => Ok(list.Select(product => new ProductResponse(
+                product.ProductId,
+                product.SiteId,
+                product.Name,
+                product.Description,
+                product.Price
+            ))),
             Problem);
     }
 }

@@ -1,0 +1,6 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+GET {host}/api/Products/BySite/{siteId}
+Authorization: Bearer {{token}}
+

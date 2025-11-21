@@ -1,0 +1,12 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+PUT {host}/api/Products/{productId}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "string-name",
+    "description": "string-description",
+    "price": 0
+}

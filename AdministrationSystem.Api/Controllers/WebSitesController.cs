@@ -29,19 +29,26 @@ public class WebSitesController : ApiController
         var result = await _mediator.Send(command);
 
         return result.Match(
-            ok => Ok(ok),
+            ok => CreatedAtAction(
+                nameof(Get),
+                new { webSiteId = ok.WebSiteId },
+                ok),
             Problem);
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<IActionResult> Get(Guid id)
+    [HttpGet("{webSiteId:guid}")]
+    public async Task<IActionResult> Get(Guid webSiteId)
     {
-        var query = new GetWebSiteByIdQuery(id);
+        var query = new GetWebSiteByIdQuery(webSiteId);
 
         var result = await _mediator.Send(query);
 
         return result.Match(
-            ok => Ok(ok),
+            ok => Ok(new WebSiteResponse(
+                ok.WebSiteId,
+                ok.Url,
+                ok.Name,
+                ok.Email)),
             Problem);
     }
 
@@ -50,7 +57,13 @@ public class WebSitesController : ApiController
     {
         var query = new GetAllWebSitesQuery();
         var result = await _mediator.Send(query);
-        return Ok(result);
+        return result.Match(
+            list => Ok(list.Select(ok => new WebSiteResponse(
+                ok.WebSiteId,
+                ok.Url,
+                ok.Name,
+                ok.Email))),
+            Problem);
     }
 
     [HttpPut("{id:guid}")]
@@ -60,9 +73,7 @@ public class WebSitesController : ApiController
 
         var result = await _mediator.Send(command);
 
-        return result.Match(
-            ok => Ok(ok),
-            Problem);
+        return result.Match(_ => NoContent(), Problem);
     }
 
     [HttpDelete("{id:guid}")]
@@ -72,8 +83,6 @@ public class WebSitesController : ApiController
 
         var result = await _mediator.Send(command);
 
-        return result.Match(
-            ok => Ok(),
-            Problem);
+        return result.Match(_ => NoContent(), Problem);
     }
 }

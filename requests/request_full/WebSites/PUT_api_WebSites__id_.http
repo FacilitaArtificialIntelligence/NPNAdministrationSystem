@@ -1,0 +1,12 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+PUT {host}/api/WebSites/{id}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "url": "string-url",
+    "name": "string-name",
+    "email": "string-email"
+}

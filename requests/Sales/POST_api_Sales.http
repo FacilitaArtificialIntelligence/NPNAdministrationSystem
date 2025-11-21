@@ -1,0 +1,14 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+POST {host}/api/Sales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "productId": "00000000-0000-0000-0000-000000000000",
+    "siteId": "00000000-0000-0000-0000-000000000000",
+    "userId": "00000000-0000-0000-0000-000000000000",
+    "saleDate": "2024-01-01T00:00:00",
+    "amount": 0
+}

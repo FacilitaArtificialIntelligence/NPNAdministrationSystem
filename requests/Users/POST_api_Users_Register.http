@@ -1,0 +1,17 @@
+@host=http://localhost:5001
+
+POST {host}/api/Users/Register
+Content-Type: application/json
+
+{
+    "userName": "string-userName",
+    "fullName": "string-fullName",
+    "email": "string-email",
+    "password": "string-password",
+    "role": "string-role",
+    "dataNascimento": "2024-01-01T00:00:00",
+    "cpf": "string-cpf",
+    "phoneNumber": "string-phoneNumber",
+    "cep": "string-cep",
+    "address": "string-address"
+}

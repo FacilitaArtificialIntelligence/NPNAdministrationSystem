@@ -1,6 +1,3 @@
-
-namespace AdministrationSystem.Api.Controllers;
-
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using AdministrationSystem.Application.Sales.Commands.Create;
@@ -9,6 +6,7 @@ using AdministrationSystem.Application.Sales.Queries.GetById;
 using AdministrationSystem.Application.Sales.Queries.GetByProduct;
 using AdministrationSystem.Contracts.Sales;
 
+namespace AdministrationSystem.Api.Controllers;
 
 [Route("api/[controller]")]
 public class SalesController : ApiController
@@ -33,7 +31,17 @@ public class SalesController : ApiController
         var result = await _mediator.Send(command);
 
         return result.Match(
-            s => Ok(result.Value),
+            sale => CreatedAtAction(
+                nameof(GetById),
+                new { id = sale.SaleId },
+                new SaleResponse(
+                    sale.SaleId,
+                    sale.ProductId,
+                    sale.SiteId,
+                    sale.UserId,
+                    sale.SaleDate,
+                    sale.Amount
+                )),
             Problem);
     }
 
@@ -50,7 +58,14 @@ public class SalesController : ApiController
         var result = await _mediator.Send(new GetSaleByIdQuery(id));
 
         return result.Match(
-            s => Ok(result.Value),
+            sale => Ok(new SaleResponse(
+                sale.SaleId,
+                sale.ProductId,
+                sale.SiteId,
+                sale.UserId,
+                sale.SaleDate,
+                sale.Amount
+            )),
             Problem);
     }
 
@@ -60,7 +75,14 @@ public class SalesController : ApiController
         var result = await _mediator.Send(new GetSalesByProductQuery(productId));
 
         return result.Match(
-            list => Ok(result.Value),
+            list => Ok(list.Select(sale => new SaleResponse(
+                sale.SaleId,
+                sale.ProductId,
+                sale.SiteId,
+                sale.UserId,
+                sale.SaleDate,
+                sale.Amount
+            ))),
             Problem);
     }
 }

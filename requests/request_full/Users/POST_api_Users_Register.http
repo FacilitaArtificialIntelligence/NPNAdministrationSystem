@@ -1,0 +1,19 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+POST {host}/api/Users/Register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "userName": "string-userName",
+    "fullName": "string-fullName",
+    "email": "string-email",
+    "password": "string-password",
+    "role": "string-role",
+    "dataNascimento": "2024-01-01T00:00:00",
+    "cpf": "string-cpf",
+    "phoneNumber": "string-phoneNumber",
+    "cep": "string-cep",
+    "address": "string-address"
+}

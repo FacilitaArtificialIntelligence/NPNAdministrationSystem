@@ -1,0 +1,11 @@
+@host=http://localhost:5001
+@token=YOUR_TOKEN
+
+POST {host}/api/Users/Login
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "email": "string-email",
+    "password": "string-password"
+}
